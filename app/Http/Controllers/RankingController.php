@@ -91,10 +91,22 @@ class RankingController extends Controller
     {
         $items = [];
         if (Item::exists()) {
-            $items = \DB::table('item_user')->join('items', 'item_user.item_id', '=', 'items.id')->select('items.*', \DB::raw('COUNT(*) as count'))->where('type', 'want')->groupBy('items.id')->orderBy('count', 'DESC')->take(10)->get();
+            $items = \DB::table('item_user')->join('items', 'item_user.item_id', '=', 'items.id')->select('items.*', 'item_user.type', \DB::raw('COUNT(*) as count'))->where('type', 'want')->groupBy('items.id')->orderBy('count', 'DESC')->take(10)->get();
         }
 
         return view('ranking.want', [
+            'items' => $items,
+        ]);
+    }
+    
+    public function have()
+    {
+        $items = [];
+        if (Item::exists()) {
+            $items = \DB::table('item_user')->join('items', 'item_user.item_id', '=', 'items.id')->select('items.*', 'item_user.type', \DB::raw('COUNT(*) as count'))->where('type', 'have')->groupBy('items.id')->orderBy('count', 'DESC')->take(10)->get();
+        }
+
+        return view('ranking.have', [
             'items' => $items,
         ]);
     }
