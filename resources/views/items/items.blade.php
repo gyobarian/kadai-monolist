@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         @if (isset($item->count))
-                            @if ($item->code == 'want')
+                            @if ($type == 'want')
                                 <div class="panel-footer">
                                     <p class="text-center">{{ $key+1 }}位: {{ $item->count}} Wants</p>
                                 </div>
